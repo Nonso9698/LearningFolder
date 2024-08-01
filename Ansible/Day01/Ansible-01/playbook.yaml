@@ -1,0 +1,27 @@
+
+- name: My first play
+  hosts: myhosts
+  tasks:
+   - name: Ping my hosts
+     ansible.builtin.ping:
+
+   - name: Print message
+     ansible.builtin.debug:
+      msg: Hello world
+
+
+- name: Copy and execute script
+  hosts: myhosts
+  become: yes  # Use this if you need superuser privileges
+  tasks:
+    - name: Copy file with owner and permission
+      copy:
+        src: ./index.sh
+        dest: /home/ubuntu/index.sh
+        owner: chinonso
+        group: chinonso
+        mode: '0755'  # Ensure the file is executable
+
+    - name: Run the script
+      command: /home/ubuntu/index.sh
+
